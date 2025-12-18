@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"; 
 import { View, Text, Button, FlatList, TouchableOpacity } from "react-native"; 
- 
+ import AppBar from "./AppBar";
+
 export default function TodoListScreen({ navigation }) { 
  const [todos, setTodos] = useState([]); 
  const [loading, setLoading] = useState(true); 
@@ -26,23 +27,26 @@ export default function TodoListScreen({ navigation }) {
    ); 
  } 
  
- return ( 
-   <View style={{ flex: 1, padding: 20 }}> 
-     <Text style={{ fontSize: 24, marginBottom: 10 }}>Mes tâches</Text> 
- 
-     <FlatList 
-       data={todos} 
-       keyExtractor={(i) => i.id.toString()} 
-       renderItem={({ item }) => ( 
-         <TouchableOpacity 
-        //    onPress={() => 
-        //      // TODO : naviguer vers "Détails" avec id + title 
-        //    } 
-         > 
-           <Text style={{ padding: 10, fontSize: 18 }}>{item.title}</Text> 
-         </TouchableOpacity> 
-       )} 
-     /> 
-   </View> 
- ); 
+ return (
+  <View style={{ flex: 1 }}>
+    {/* AppBar en haut */}
+    <AppBar title="Mes tâches" />
+
+    {/* Contenu */}
+    <View style={{ flex: 1, padding: 20 }}>
+      <FlatList
+        data={todos}
+        keyExtractor={(i) => i.id.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity>
+            <Text style={{ padding: 10, fontSize: 18 }}>
+              {item.title}
+            </Text>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  </View>
+);
+
 } 
